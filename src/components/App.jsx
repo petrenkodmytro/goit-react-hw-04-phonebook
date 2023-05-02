@@ -86,15 +86,18 @@ export class App extends Component {
 
     return (
       <Layout>
+
         <h1>Phonebook</h1>
         <ContactForm onSave={this.addContact} />
 
         <h2>Contacts</h2>
         <Filter value={this.state.filter} onSearch={this.changeFilter} />
+        
         <ContactList items={visibleContacts} onDelete={this.deleteContact} />
 
         <ToastContainer />
         <GlobalStyle />
+
       </Layout>
     );
   }

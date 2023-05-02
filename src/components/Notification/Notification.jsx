@@ -1,5 +1,5 @@
-const notificationMassege = 'is already in contacts!';
-const notificationOptions = {
+export const notificationMassege = 'is already in contacts!';
+export const notificationOptions = {
   position: 'top-center',
   autoClose: 5000,
   hideProgressBar: false,
