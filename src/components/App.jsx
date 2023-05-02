@@ -7,18 +7,10 @@ import { Filter } from './Filter/Filter';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import initialContacts from './contacts.json';
-
-const notificationMassege = 'is already in contacts!';
-const notificationOptions = {
-  position: 'top-center',
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: 'dark',
-};
+import {
+  notificationMassege,
+  notificationOptions,
+} from './Notification/Notification';
 
 // render > didMount > getItem > setState > update > render > didUpdate > setItem
 
@@ -31,13 +23,13 @@ export class App extends Component {
   // стадія монтування
   componentDidMount() {
     const savedContacts = localStorage.getItem('contacts');
-     // Если сохранили в LS уже что-то, пишем ЭТО в state
+    // Если сохранили в LS уже что-то, пишем ЭТО в state
     if (savedContacts !== null) {
       const parsedContacts = JSON.parse(savedContacts);
       this.setState({ contacts: parsedContacts });
       return;
     }
-     // Если в LS ничего еще нет, пишем в state initialRecipes
+    // Если в LS ничего еще нет, пишем в state initialRecipes
     this.setState({ contacts: initialContacts });
   }
 
