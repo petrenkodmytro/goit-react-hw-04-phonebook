@@ -11,34 +11,24 @@ import {
   notificationMassege,
   notificationOptions,
 } from './Notification/Notification';
+import { SectionTitle } from './Title/Title';
 
-// render > didMount > getItem > setState > update > render > didUpdate > setItem
+// фун-я инициализатор начального состояния contacts
+const getInitialContacts = () => {
+  const savedContacts = localStorage.getItem('contacts');
+  // Если сохранили в LS уже что-то, пишем ЭТО в state
+  if (savedContacts !== null) {
+    const parsedContacts = JSON.parse(savedContacts);
+    return parsedContacts; // результат работы фун-и
+  } else {
+    // Если в LS ничего еще нет, пишем в state initialRecipes
+    return initialContacts; // результат работы фун-и
+  }
+};
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(getInitialContacts);
   const [filter, setFilter] = useState('');
-
-  // стадія монтування
-  // componentDidMount() {
-  //   const savedContacts = localStorage.getItem('contacts');
-  //   // Если сохранили в LS уже что-то, пишем ЭТО в state
-  //   if (savedContacts !== null) {
-  //     const parsedContacts = JSON.parse(savedContacts);
-  //     this.setState({ contacts: parsedContacts });
-  //     return;
-  //   }
-  //   // Если в LS ничего еще нет, пишем в state initialRecipes
-  //   this.setState({ contacts: initialContacts });
-  // }
-
-  // // стадія оновлення
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.contacts !== prevState.contacts) {
-  //     // console.log(this.state.contacts); // поточне значення
-  //     // console.log(prevState.contacts); // попереднє значення
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  //   }
-  // }
 
   useEffect(() => {
     // массив зависимости - это под капотом оператор if
@@ -87,10 +77,10 @@ export const App = () => {
 
   return (
     <Layout>
-      <h1>Phonebook</h1>
+      <SectionTitle title="Phonebook" />
       <ContactForm onSave={addContact} />
 
-      <h2>Contacts</h2>
+      <SectionTitle title="Contacts" />
       <Filter value={filter} onSearch={changeFilter} />
 
       <ContactList items={visibleContacts} onDelete={deleteContact} />
